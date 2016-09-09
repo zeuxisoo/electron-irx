@@ -19,12 +19,12 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a class="hand">
+                            <a class="hand" v-on:click="minimizeWindow()">
                                 <i class="fa fa-minus icon-size-18"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="hand">
+                            <a class="hand" v-on:click="closeWindow()">
                                 <i class="fa fa-times icon-size-18"></i>
                             </a>
                         </li>
@@ -70,7 +70,19 @@ import 'bootstrap-material-design/dist/css/ripples.css'
 import 'font-awesome/css/font-awesome.css'
 import 'roboto-fontface'
 
+const remote = window.require('electron').remote
+
 export default {
+
+    methods: {
+        minimizeWindow() {
+            remote.getCurrentWindow().minimize()
+        },
+
+        closeWindow() {
+            remote.getCurrentWindow().close()
+        }
+    },
 
     components: {
     }

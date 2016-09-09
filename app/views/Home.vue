@@ -1,6 +1,12 @@
 <template>
     <div class="home">
-        Home Page
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    Hello
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
