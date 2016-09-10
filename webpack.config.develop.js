@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var config    = require('./webpack.config');
+var config = require('./webpack.config');
 
 config.devtool = 'eval';
 

@@ -1,15 +1,17 @@
+var path = require('path');
 var webpack = require('webpack');
 var discardComments = require('postcss-discard-comments')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var ManifestPlugin = require('webpack-manifest-plugin');
 
 var config = require('./webpack.config');
 
-config.output.filename = 'bundle.[hash].js';
-config.devtool         = 'hidden-source-map';
+config.output.path       = path.join(__dirname, "dist", "build");
+config.output.publicPath = '/'
+config.output.filename   = 'bundle.js';
+config.devtool           = 'hidden-source-map';
 
 config.plugins.push(
-    new ExtractTextPlugin("bundle.[hash].css", {
+    new ExtractTextPlugin("bundle.css", {
         disable: false
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -27,9 +29,6 @@ config.plugins.push(
             screw_ie8: true,
             warnings: false
         }
-    }),
-    new ManifestPlugin({
-        fileName: 'rev-manifest.json',
     })
 );
 
@@ -39,7 +38,6 @@ config.postcss = function() {
             removeAll: true
         })
     ]
-}
-
+};
 
 module.exports = config;

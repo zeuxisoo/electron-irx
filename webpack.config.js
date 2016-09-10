@@ -9,6 +9,8 @@ var publicPath = "/build/";
 module.exports = {
     entry: ["./app/app.js"],
 
+    target: 'electron',
+
     output: {
         path: __dirname + publicPath,
         filename: 'bundle.js',
@@ -48,8 +50,13 @@ module.exports = {
             loader: "json-loader",
         }, {
             test: /\.mp3$/,
-            loader: "file-loader"
+            loader: "url-loader?limit=10000&minetype=audio/mpeg"
         }]
+    },
+
+    node: {
+        __dirname : false,
+        __filename: false
     },
 
     vue: {

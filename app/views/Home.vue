@@ -78,6 +78,9 @@ import path from 'path'
 import phoneModel from '../model/phone.json'
 import { Howl } from 'howler'
 
+const app = window.require('electron').remote.app
+const fs = window.require('electron').remote.require('fs')
+
 export default {
 
     beforeMount() {
@@ -141,6 +144,8 @@ export default {
         },
 
         checkPlusJetBackIsAvailableBuy() {
+            // MN4D2ZP/A: iPhone 7 Plus 128GB 亮黑色
+            // MN4L2ZP/A: iPhone 7 Plus 256GB 亮黑色
             let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
             let playAvailableSound = false
 
@@ -167,14 +172,14 @@ export default {
 
         playMatchedSound() {
             new Howl({
-                src: [require('../sound/matched.mp3')],
+                src: ['atom:///assets/sound/matched.mp3'],
                 autoplay: true,
             }).play()
         },
 
         playAvailableSound() {
             new Howl({
-                src: [require('../sound/available.mp3')],
+                src: ['atom:///assets/sound/available.mp3'],
                 autoplay: true,
             }).play()
         }

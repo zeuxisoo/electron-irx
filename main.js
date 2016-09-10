@@ -1,10 +1,29 @@
 'use strict'
 
-const { app, BrowserWindow } = require('electron')
+const path = require('path')
+const { app, protocol, BrowserWindow } = require('electron')
 
 let mainWindow = null
 
 const openMainWindow = () => {
+    protocol.registerFileProtocol(
+        'atom',
+        (request, callback) => {
+            const url = request.url.substr(7)
+
+            callback({
+                path: path.normalize(__dirname + '/' + url)
+            });
+        },
+        error => {
+            if (error) {
+                console.log('No! Failed to register atom:// protocol')
+            }else{
+                console.log('OK! Regsitered atom:// protocol')
+            }
+        }
+    )
+
     mainWindow = new BrowserWindow({
         width : 800,
         height: 650,
