@@ -158,7 +158,7 @@ export default {
 
         playSound() {
             new Howl({
-                src: ['../sound/alert.mp3'],
+                src: [require('../sound/alert.mp3')],
                 autoplay: true,
             }).play()
         }
