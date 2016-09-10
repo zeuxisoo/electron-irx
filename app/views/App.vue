@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div id="draggable" class="navbar navbar-default navbar-fixed-top">
+        <div id="draggable" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -51,6 +51,11 @@ body {
 
 .icon-size-18 {
     font-size: 18px;
+}
+
+.view {
+    overflow: auto;
+    max-height: 586px;
 }
 
 /* not working when devtootls openned */

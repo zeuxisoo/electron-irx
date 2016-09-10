@@ -9,3 +9,9 @@ export function fetchStoreList() {
         .then(response => response.json())
         .then(data => data.stores)
 }
+
+export function fetchPhoneData() {
+    return Vue.http
+        .get("https://reserve.cdn-apple.com/HK/zh_HK/reserve/iPhone/availability.json")
+        .then(response => response.json())
+}
