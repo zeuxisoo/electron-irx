@@ -32,7 +32,7 @@
                                                 <td>{{ phone.model }}</td>
                                                 <td>{{ phone.label }}</td>
                                                 <td v-bind:class="{ 'available': isAvailableBuy(store, phone) }">
-                                                    {{ storePhoneData[store.storeNumber][phone.model] }}
+                                                    {{ phoneStatus(store, phone) }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -116,10 +116,20 @@ export default {
         },
 
         isAvailableBuy(store, phone) {
-            console.log(phone)
-            return this.storePhoneData[store.storeNumber][phone.model] === "ALL"
-        }
+            if (store.storeNumber in this.storePhoneData) {
+                return this.storePhoneData[store.storeNumber][phone.model] === "ALL"
+            }else{
+                return false
+            }
+        },
 
+        phoneStatus(store, phone) {
+            if (store.storeNumber in this.storePhoneData) {
+                return this.storePhoneData[store.storeNumber][phone.model]
+            }else{
+                return "Unknown"
+            }
+        }
     }
 
 }
