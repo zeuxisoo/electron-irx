@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { fetchStoreList, fetchPhoneData } from '../api'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -39,7 +40,11 @@ const store = new Vuex.Store({
 
         phoneData(state) {
             return state.phoneData
-        }
+        },
+
+        phoneDataLatestUpdateTime(state) {
+            return moment(state.phoneData.updated).format("HH:mm:ss")
+        },
     }
 })
 

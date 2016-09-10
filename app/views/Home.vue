@@ -73,13 +73,22 @@
 </style>
 
 <script>
+import path from 'path'
+
 import phoneModel from '../model/phone.json'
+import { Howl } from 'howler'
 
 export default {
 
     beforeMount() {
         this.fetchStoreList()
         this.fetchPhoneData()
+
+        setInterval(() => {
+            this.fetchStoreList()
+            this.fetchPhoneData()
+            this.checkPlusJetBackIsAvailableBuy()
+        }, 8000)
     },
 
     data() {
@@ -129,6 +138,29 @@ export default {
             }else{
                 return "Unknown"
             }
+        },
+
+        checkPlusJetBackIsAvailableBuy() {
+            let plusJetBackModels = ['MN4D2ZP/A', 'MN4L2ZP/A']
+
+            for(let store in this.storeList) {
+                for(let phone in this.phoneModel) {
+                    let theStore = this.storeList[store]
+                    let thePhone = this.phoneModel[phone]
+                    let status   = this.phoneStatus(theStore, thePhone).toLowerCase()
+
+                    if (status == "all" && plusJetBackModels.indexOf(thePhone.model) != -1) {
+                        this.playSound()
+                    }
+                }
+            }
+        },
+
+        playSound() {
+            new Howl({
+                src: ['../sound/alert.mp3'],
+                autoplay: true,
+            }).play()
         }
     }
 

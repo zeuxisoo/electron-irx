@@ -19,6 +19,11 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
+                            <a>
+                                Latest Update: {{ phoneDataLatestUpdateTime }}
+                            </a>
+                        </li>
+                        <li>
                             <a class="hand" v-on:click="minimizeWindow()">
                                 <i class="fa fa-minus icon-size-18"></i>
                             </a>
@@ -79,6 +84,12 @@ const remote = window.require('electron').remote
 
 export default {
 
+    computed: {
+        phoneDataLatestUpdateTime() {
+            return this.$store.getters.phoneDataLatestUpdateTime
+        }
+    },
+
     methods: {
         minimizeWindow() {
             remote.getCurrentWindow().minimize()
@@ -87,9 +98,6 @@ export default {
         closeWindow() {
             remote.getCurrentWindow().close()
         }
-    },
-
-    components: {
     }
 
 }
