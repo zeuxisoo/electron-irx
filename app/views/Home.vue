@@ -141,7 +141,8 @@ export default {
         },
 
         checkPlusJetBackIsAvailableBuy() {
-            let plusJetBackModels = ['MN4D2ZP/A', 'MN4L2ZP/A']
+            let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
+            let playAvailableSound = false
 
             for(let store in this.storeList) {
                 for(let phone in this.phoneModel) {
@@ -150,15 +151,30 @@ export default {
                     let status   = this.phoneStatus(theStore, thePhone).toLowerCase()
 
                     if (status == "all" && plusJetBackModels.indexOf(thePhone.model) != -1) {
-                        this.playSound()
+                        this.playMatchedSound()
+                    }
+
+                    if (status === "all") {
+                        playAvailableSound = true
                     }
                 }
             }
+
+            if (playAvailableSound === true) {
+                this.playAvailableSound()
+            }
         },
 
-        playSound() {
+        playMatchedSound() {
             new Howl({
-                src: [require('../sound/alert.mp3')],
+                src: [require('../sound/matched.mp3')],
+                autoplay: true,
+            }).play()
+        },
+
+        playAvailableSound() {
+            new Howl({
+                src: [require('../sound/available.mp3')],
                 autoplay: true,
             }).play()
         }
