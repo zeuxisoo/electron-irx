@@ -19,7 +19,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a>
+                            <a v-on:click="openDevTools($event)">
                                 Latest Update: {{ phoneDataLatestUpdateTime }}
                             </a>
                         </li>
@@ -90,6 +90,12 @@ export default {
     },
 
     methods: {
+        openDevTools(event) {
+            if (event.detail == 5) {
+                remote.getCurrentWindow().openDevTools()
+            }
+        },
+
         minimizeWindow() {
             remote.getCurrentWindow().minimize()
         },
