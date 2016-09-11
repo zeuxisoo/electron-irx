@@ -81,6 +81,14 @@ import { Howl } from 'howler'
 const app = window.require('electron').remote.app
 const fs = window.require('electron').remote.require('fs')
 
+const matchedSound = new Howl({
+    src: ['atom:///assets/sound/matched.mp3'],
+})
+
+const availableSound = new Howl({
+    src: ['atom:///assets/sound/available.mp3'],
+})
+
 export default {
 
     beforeMount() {
@@ -173,17 +181,11 @@ export default {
         },
 
         playMatchedSound() {
-            new Howl({
-                src: ['atom:///assets/sound/matched.mp3'],
-                autoplay: true,
-            }).play()
+            matchedSound.play()
         },
 
         playAvailableSound() {
-            new Howl({
-                src: ['atom:///assets/sound/available.mp3'],
-                autoplay: true,
-            }).play()
+            availableSound.play()
         }
     }
 
