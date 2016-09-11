@@ -129,7 +129,8 @@ export default {
 
         isAvailableBuy(store, phone) {
             if (store.storeNumber in this.storePhoneData) {
-                return this.storePhoneData[store.storeNumber][phone.model] === "ALL"
+                return this.storePhoneData[store.storeNumber][phone.model] === "ALL" ||
+                       this.storePhoneData[store.storeNumber][phone.model] === "UNLOCKED"
             }else{
                 return false
             }
@@ -147,6 +148,7 @@ export default {
             // MN4D2ZP/A: iPhone 7 Plus 128GB 亮黑色
             // MN4L2ZP/A: iPhone 7 Plus 256GB 亮黑色
             let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
+            let availableBuyStatus = ['all', 'unlocked']
             let playAvailableSound = false
 
             for(let store in this.storeList) {
@@ -155,11 +157,11 @@ export default {
                     let thePhone = this.phoneModel[phone]
                     let status   = this.phoneStatus(theStore, thePhone).toLowerCase()
 
-                    if (status == "all" && plusJetBackModels.indexOf(thePhone.model) != -1) {
+                    if (availableBuyStatus.indexOf(status) != -1 && plusJetBackModels.indexOf(thePhone.model) != -1) {
                         this.playMatchedSound()
                     }
 
-                    if (status === "all") {
+                    if (availableBuyStatus.indexOf(status) != -1) {
                         playAvailableSound = true
                     }
                 }
