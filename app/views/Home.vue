@@ -76,18 +76,10 @@
 import path from 'path'
 
 import phoneModel from '../model/phone.json'
-import { Howl } from 'howler'
+import { sound } from '../helper'
 
 const app = window.require('electron').remote.app
 const fs = window.require('electron').remote.require('fs')
-
-const matchedSound = new Howl({
-    src: ['atom:///assets/sound/matched.mp3'],
-})
-
-const availableSound = new Howl({
-    src: ['atom:///assets/sound/available.mp3'],
-})
 
 export default {
 
@@ -157,6 +149,7 @@ export default {
             // MN4L2ZP/A: iPhone 7 Plus 256GB 亮黑色
             let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
             let availableBuyStatus = ['all', 'unlocked']
+            let playMatchedSound   = false
             let playAvailableSound = false
 
             for(let store in this.storeList) {
@@ -166,7 +159,7 @@ export default {
                     let status   = this.phoneStatus(theStore, thePhone).toLowerCase()
 
                     if (availableBuyStatus.indexOf(status) != -1 && plusJetBackModels.indexOf(thePhone.model) != -1) {
-                        this.playMatchedSound()
+                        playMatchedSound = true
                     }
 
                     if (availableBuyStatus.indexOf(status) != -1) {
@@ -175,17 +168,13 @@ export default {
                 }
             }
 
-            if (playAvailableSound === true) {
-                this.playAvailableSound()
+            if (playMatchedSound === true) {
+                sound.playMatchedSound()
             }
-        },
 
-        playMatchedSound() {
-            matchedSound.play()
-        },
-
-        playAvailableSound() {
-            availableSound.play()
+            if (playAvailableSound === true) {
+                sound.playAvailableSound()
+            }
         }
     }
 
