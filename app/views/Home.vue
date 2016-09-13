@@ -4,6 +4,12 @@
             <div class="row">
                 <div class="col-md-12">
 
+                    <div class="store store-empty" v-if="storeList.length <= 0">
+                        <div class="alert alert-empty" role="alert">
+                            The available list is not readable
+                        </div>
+                    </div>
+
                     <div class="store" v-for="store in storeList">
                         <div class="info">
                             <div class="row">
@@ -69,6 +75,20 @@
 .store .phone .available {
     color: #006600;
     font-weight: bold;
+}
+
+.store.store-empty .alert {
+    height: 566px;
+}
+
+.store.store-empty .alert-empty {
+    background: #B6E7FF;
+    color: #000000;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 </style>
 
