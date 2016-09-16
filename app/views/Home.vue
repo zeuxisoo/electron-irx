@@ -4,13 +4,13 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="store store-empty" v-if="storeList.length <= 0">
+                    <div class="store store-empty" v-if="isPhoneDataAvailable === false">
                         <div class="alert alert-empty" role="alert">
                             The available list is not readable
                         </div>
                     </div>
 
-                    <div class="store" v-for="store in storeList">
+                    <div class="store" v-for="store in storeList" v-if="isPhoneDataAvailable === true">
                         <div class="info">
                             <div class="row">
                                 <div class="col-sm-6 name">{{ store.storeName }}</div>
@@ -127,6 +127,10 @@ export default {
 
         storePhoneData() {
             return this.$store.getters.phoneData
+        },
+
+        isPhoneDataAvailable() {
+            return Object.keys(this.storePhoneData).length !== 0
         }
     },
 
