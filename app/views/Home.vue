@@ -104,6 +104,7 @@
 import path from 'path'
 
 import phoneModel from '../model/phone.json'
+import playSoundForAvailablePhoneModel from '../model/play-sound-for-available-phone.json'
 import { sound } from '../helper'
 
 const app = window.require('electron').remote.app
@@ -188,6 +189,8 @@ export default {
             let playMatchedSound   = false
             let playAvailableSound = false
 
+            let playSoundForAvailablePhones = this.generatePlaySoundForAvailablePhones()
+
             for(let store in this.storeList) {
                 for(let phone in this.phoneModel) {
                     let theStore = this.storeList[store]
@@ -197,7 +200,7 @@ export default {
                         playMatchedSound = true
                     }
 
-                    if (this.isAvailableBuy(theStore, thePhone) === true) {
+                    if (this.isAvailableBuy(theStore, thePhone) === true && playSoundForAvailablePhones.indexOf(thePhone.model) != -1) {
                         playAvailableSound = true
                     }
                 }
@@ -210,6 +213,14 @@ export default {
             if (playAvailableSound === true) {
                 sound.playAvailableSound()
             }
+        },
+
+        generatePlaySoundForAvailablePhones() {
+            let phones = playSoundForAvailablePhoneModel.map(phone => {
+                return phone.model
+            })
+
+            return phones
         }
     }
 
