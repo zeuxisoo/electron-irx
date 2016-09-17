@@ -111,7 +111,7 @@ export default {
             this.fetchStoreList()
             this.fetchPhoneData()
             this.checkPlusJetBackIsAvailableBuy()
-        }, 8000)
+        }, 3000)
     },
 
     data() {
