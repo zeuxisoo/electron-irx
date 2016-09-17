@@ -36,6 +36,7 @@
                                         <tbody>
                                             <tr v-for="phone in phoneModel" v-bind:class="{
                                                 'success'     : isAvailableBuy(store, phone),
+                                                'info'        : isInPlaySoundForAvailablePhones(store, phone),
                                                 'is-jet-black': isJetBackAvailableBuy(store, phone)
                                             }">
                                                 <td>{{ phone.model }}</td>
@@ -165,6 +166,12 @@ export default {
             let currentPhoneStatus = this.phoneStatus(store, phone).toLowerCase()
 
             return availableBuyStatus.indexOf(currentPhoneStatus) != -1
+        },
+
+        isInPlaySoundForAvailablePhones(store, phone) {
+            let playSoundForAvailablePhones = this.generatePlaySoundForAvailablePhones()
+
+            return this.isAvailableBuy(store, phone) === true && playSoundForAvailablePhones.indexOf(phone.model) != -1
         },
 
         isJetBackAvailableBuy(store, phone) {
