@@ -175,7 +175,7 @@ export default {
         },
 
         isJetBackAvailableBuy(store, phone) {
-            let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
+            let plusJetBackModels  = ['MN8Q2ZP/A', 'MN8W2ZP/A', 'MN4D2ZP/A', 'MN4L2ZP/A']
 
             return this.isAvailableBuy(store, phone) === true && plusJetBackModels.indexOf(phone.model) != -1
         },
@@ -189,9 +189,11 @@ export default {
         },
 
         checkPlusJetBackIsAvailableBuy() {
+            // MN8Q2ZP/A: iPhone 7 128GB 亮黑色
+            // MN8W2ZP/A: iPhone 7 256GB 亮黑色
             // MN4D2ZP/A: iPhone 7 Plus 128GB 亮黑色
             // MN4L2ZP/A: iPhone 7 Plus 256GB 亮黑色
-            let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
+            let plusJetBackModels  = ['MN8Q2ZP/A', 'MN8W2ZP/A', 'MN4D2ZP/A', 'MN4L2ZP/A']
             let availableBuyStatus = ['all', 'unlocked']
             let playMatchedSound   = false
             let playAvailableSound = false
