@@ -34,7 +34,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="phone in phoneModel" v-bind:class="{ 'success': isAvailableBuy(store, phone) }">
+                                            <tr v-for="phone in phoneModel" v-bind:class="{
+                                                'success'     : isAvailableBuy(store, phone),
+                                                'is-jet-black': isJetBackAvailableBuy(store, phone)
+                                            }">
                                                 <td>{{ phone.model }}</td>
                                                 <td>{{ phone.label }}</td>
                                                 <td v-bind:class="{ 'available': isAvailableBuy(store, phone) }">
@@ -75,6 +78,11 @@
 .store .phone .available {
     color: #006600;
     font-weight: bold;
+}
+
+.store .phone .is-jet-black {
+    background: #000000;
+    color: #FFFFFF;
 }
 
 .store.store-empty .alert {
@@ -152,12 +160,16 @@ export default {
         },
 
         isAvailableBuy(store, phone) {
-            if (store.storeNumber in this.storePhoneData) {
-                return this.storePhoneData[store.storeNumber][phone.model] === "ALL" ||
-                       this.storePhoneData[store.storeNumber][phone.model] === "UNLOCKED"
-            }else{
-                return false
-            }
+            let availableBuyStatus = ['all', 'unlocked']
+            let currentPhoneStatus = this.phoneStatus(store, phone).toLowerCase()
+
+            return availableBuyStatus.indexOf(currentPhoneStatus) != -1
+        },
+
+        isJetBackAvailableBuy(store, phone) {
+            let plusJetBackModels  = ['MN4D2ZP/A', 'MN4L2ZP/A']
+
+            return this.isAvailableBuy(store, phone) === true && plusJetBackModels.indexOf(phone.model) != -1
         },
 
         phoneStatus(store, phone) {
@@ -180,13 +192,12 @@ export default {
                 for(let phone in this.phoneModel) {
                     let theStore = this.storeList[store]
                     let thePhone = this.phoneModel[phone]
-                    let status   = this.phoneStatus(theStore, thePhone).toLowerCase()
 
-                    if (availableBuyStatus.indexOf(status) != -1 && plusJetBackModels.indexOf(thePhone.model) != -1) {
+                    if (this.isAvailableBuy(theStore, thePhone) === true && plusJetBackModels.indexOf(thePhone.model) != -1) {
                         playMatchedSound = true
                     }
 
-                    if (availableBuyStatus.indexOf(status) != -1) {
+                    if (this.isAvailableBuy(theStore, thePhone) === true) {
                         playAvailableSound = true
                     }
                 }
