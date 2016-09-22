@@ -35,9 +35,9 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="phone in phoneModel" v-bind:class="{
-                                                'success'     : isAvailableBuy(store, phone),
-                                                'info'        : isInPlaySoundForAvailablePhones(store, phone),
-                                                'is-jet-black': isJetBackAvailableBuy(store, phone)
+                                                'success': isAvailableBuy(store, phone),
+                                                'info'   : isInPlaySoundForAvailablePhones(store, phone),
+                                                'danger' : isJetBackAvailableBuy(store, phone)
                                             }">
                                                 <td>{{ phone.model }}</td>
                                                 <td>{{ phone.label }}</td>
@@ -81,11 +81,6 @@
     font-weight: bold;
 }
 
-.store .phone .is-jet-black {
-    background: #000000;
-    color: #FFFFFF;
-}
-
 .store.store-empty .alert {
     height: 566px;
 }
@@ -121,7 +116,7 @@ export default {
             this.fetchStoreList()
             this.fetchPhoneData()
             this.checkPlusJetBackIsAvailableBuy()
-        }, 3000)
+        }, 2000)
     },
 
     data() {
